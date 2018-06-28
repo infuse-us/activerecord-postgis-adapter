@@ -1,10 +1,9 @@
 language: ruby
 sudo: false
 rvm:
-  - 2.5
-  - 2.4
-  - 2.3
-  - 2.2
+  - 2.5.1
+  - 2.4.4
+  - 2.3.7
   - jruby-9.1.9.0
 gemfile:
   - gemfiles/ar51.gemfile
@@ -13,10 +12,14 @@ matrix:
   allow_failures:
     - rvm: jruby-9.1.9.0
 addons:
-  postgresql: "9.4"
+  postgresql: 10
   apt:
     packages:
-      - postgresql-9.4-postgis-2.3
+      - postgresql-10-postgis-2.4
+      - postgresql-client-10
+env:
+  global:
+    - PGPORT=5433
 before_script:
   - psql -U postgres -c "create database postgis_adapter_test"
   - psql -U postgres -d postgis_adapter_test -c "create extension postgis"
